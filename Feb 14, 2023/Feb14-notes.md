@@ -1,5 +1,5 @@
 ### Class: CSc 335 
-### Date: Feb 14, 2023
+### Date: Feb 14, 2023 (Tuesday)
 
 **NOTE: Quiz will be on Feb 28, 2023 and not Feb 23, 2023**
 
