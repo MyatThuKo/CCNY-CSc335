@@ -3,25 +3,25 @@
 _____
 ___Strong induction___
 ---
-Motivation: We will need strong induction when we begin discussing data strctures.
+Motivation: We will need strong induction when we begin discussing data structures.
 
-Prove: every integer $ n \geq 2 $ can be written as a product of powers of primes (proof by strong induction)
+Prove: every integer $n \geq 2$ can be written as a product of powers of primes (proof by strong induction)
 
-Try inducting on `n`, with divide & conquer: if $ n = p * q $, with neither `p` nor `q` equal to 1. Then assume `p` is a product of powers of primes and also that `q` is a product of powers of primes. 
+Try inducting on `n`, with divide & conquer: if $n = p * q$, with neither `p` nor `q` equal to 1. Then assume `p` is a product of powers of primes and also that `q` is a product of powers of primes. 
 
 Now that we have the divide & conquer strategy, here is the full argument
-- Consider $ n \geq 2 $
-    - If $ n = 2 $, there's nothing to show, since $ 2 = 2' $ is a product of powers of primes. 
-- Consider $ n > 2 $
+- Consider $n \geq 2$
+    - If $n = 2$, there's nothing to show, since $2 = 2'$ is a product of powers of primes. 
+- Consider $n > 2$
     - Either `n` is prime or not `n` i.e. composite
     - If n is prime, we're done. 
-    - Otherwise, $ n = p * q $ for some integers $ p, q > 1 $ [def. of composite number]
+    - Otherwise, $n = p * q$ for some integers $p, q > 1$[def. of composite number]
     - Now the argument is the one we just gave. 
 
 ![Strong Induction Example](images/strong-induction-example.jpeg)
 
 This is a strong induction because 
-1. We know neither `p` nor `q` is $ n-1 $
+1. We know neither `p` nor `q` is$n-1 $
 2. We don't know in advance the values of the factors `p` and `q` - So we actually need all of the hypotheses.
 
 ____
@@ -43,7 +43,7 @@ ___Tree Recusion___
 
 What about an iterative solution?
 ---
-A design idea flows from the def of $ fib(n+1) $ as $ fib(n) + fib(n-1) $ when $ n \ngeq 2 $. where
+A design idea flows from the def of $fib(n+1) \ as \ fib(n) + fib(n-1)$ when $n \ngeq 2$. where
 ```
 fib(n+1) = fib(n) + fib(n-1)
   |          |        |
