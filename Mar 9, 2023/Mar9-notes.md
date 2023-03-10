@@ -4,15 +4,15 @@
 ___Pascal Triangle___
 ---
 
-The $ (r, c) $ entry should be $ \binom{r}{c} $, which would require $ c \leq r $ and both $ r, c$ are non-negative integers. 
+The $(r, c)$ entry should be $\binom{r}{c}$, which would require $c \leq r$ and both $r, c$ are non-negative integers. 
 
 From the table 
 
- $ \binom{5}{3} = \binom{4}{2} + \binom{4}{3} $ 
+ $$\binom{5}{3} = \binom{4}{2} + \binom{4}{3}$$ 
  
  and similarly across the table, 
 
- $ \binom{r}{c} = \binom{r - 1}{c - 1} + \binom{r - 1}{c} $
+ $$\binom{r}{c} = \binom{r - 1}{c - 1} + \binom{r - 1}{c}$$
 
  Suggesting for the recursion. 
 
@@ -20,7 +20,7 @@ From the table
 (pas r c) = (+ (pas (- r 1)(- c 1))
                (pas (- r 1) c))
 ```
-where the induction is on $ r $. 
+where the induction is on $r$. 
 
 Does Zero-based indexing deliver this? 
 - Yes, by checking a few entries.
@@ -28,11 +28,11 @@ Does Zero-based indexing deliver this?
 Divide & Conquer alone of course is not enough - we need the stopping condition(s) as well. 
 
 Observe: 
-- $ c = 0 => \binom{r}{c} = 1 $
-- $ c = r => \binom{r}{c} = 1 $
+- $$c = 0 => \binom{r}{c} = 1$$
+- $$c = r => \binom{r}{c} = 1$$
 
 Pre-conditions: 
-- $ c \leq r $ & both are non-negative integers 
+- $c \leq r$ & both are non-negative integers 
 ```scheme
 (define (pas r c)
   (cond ((zero? c) 1)
@@ -57,8 +57,8 @@ ___Higher-Order Procedures___
         ))
 ```
 
-Supposed instead of $ \sum_{i=a}^{b} i $, we want to compute $ \sum_{i=a}^{b} i^2 or \sum_{i=a}^{b} i^3 $, or generally $ \sum_{i=a}^{b} (term \ i) $, where $ term = N^{\geq 0} => R $
-- $ N^{\geq 0} => R $ needs to be added in the pre-condition. 
+Supposed instead of $\sum_{i=a}^{b} i$, we want to compute $\sum_{i=a}^{b} i^2 or \sum_{i=a}^{b} i^3$, or generally $\sum_{i=a}^{b} (term \ i)$, where $term = N^{\geq 0} => R$
+- $N^{\geq 0} => R$ needs to be added in the pre-condition. 
 
 To avoid rewriting what is essentially the same code, we **ABSTRACT** the sigma function by introducing a new parameter - call it term. 
 ```scheme 
