@@ -1,0 +1,65 @@
+(load "../graph-data-types/graph.scm")
+(load "../graph-data-types/miscellaneous-procedure.scm")
+(load "../graph-data-types/stack.scm")
+
+;; BFS Algorithm
+;; g: non-empty graph
+;; start: starting vertex
+
+(define (enqueue-all nodes queue)
+  (if (empty-queue? nodes)
+      queue
+      (enqueue-all (dequeue-queue nodes) (enqueue-queue (first-queue nodes) queue))))
+
+(define (bfs g start)
+  (define (bfs-iter queue visited)
+    (if (empty-queue? queue)
+        visited ; return the visited list
+        (let ((node (first-queue queue)))
+          (if (member? node visited)
+              (bfs-iter (dequeue-queue queue) visited)
+              (bfs-iter (enqueue-all (list-to-queue (neighbors-graph node g)) (dequeue-queue queue)) (enqueue-queue node visited))))))
+  
+  (bfs-iter (enqueue-queue start make-empty-queue) make-empty-queue))
+
+;; Shortest path algorithm
+;; g: non-empty graph
+;; start: starting vertex
+;; target: ending vertex
+(define (shortest-path g start target)
+  (define (path-iter queue visited)
+    (if (null? queue)
+        '() ; No path found
+        (let* ((path (first-queue queue))
+               (v (first-queue path))
+               (neighbors (neighbors-graph v g)))
+          (cond ((member? v visited) 
+                 (path-iter (dequeue-queue queue) visited))
+                ((eq? v target) 
+                 (my-reverse path)) ; Found target, return the reversed path
+                (else 
+                 (let* ((new-paths (map (lambda (neighbor) (my-cons neighbor path)) neighbors)))
+                   (path-iter (my-append (dequeue-queue queue) (list-to-queue new-paths)) (update-visited v visited))))))))
+
+  (path-iter (list (list start)) '()))
+
+;; DFS Algorithm
+;; g: non-empty graph
+;; start: starting vertex
+
+(define (push-all nodes stack)
+  (if (empty-stack? nodes) 
+      stack
+      (push-all (pop-stack nodes) (push-stack (top-stack nodes) stack))))
+
+(define (dfs g start)
+  (define (dfs-iter stack visited)
+    (if (empty-stack? stack)
+        (my-reverse visited)
+        (let ((node (top-stack stack)))
+          (if (member? node visited)
+              (dfs-iter (pop-stack stack) visited)
+              (dfs-iter (push-all (list-to-stack (neighbors-graph node g)) (pop-stack stack))
+                        (push-stack node visited))))))
+  
+  (dfs-iter (push-stack start make-empty-stack) make-empty-stack))
